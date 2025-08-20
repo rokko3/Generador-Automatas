@@ -1,5 +1,5 @@
-q0,q1,q2
+q0,q1,qdead
 a,b
-(q0:a)=q1,(q1:a)=q1,(q1:b)=q2,(q2:a)=q2,(q2:b)=q2
+(q0:a)=q1,(q0:b)=qdead,(q1:a)=q1,(q1:b)=qdead,(qdead:a)=qdead,(qdead:b)=qdead
 q0
-q2
+q0,q1
