@@ -10,11 +10,6 @@ class Automata:
             print("Las transiciones deben estar con estados válidos")
             sys.exit()
 
-        # Validar letras de transiciones
-        if not all(letra in alfabeto for (_, letra) in transiciones.keys()):
-            print("Las transiciones deben estar con letras válidas")
-            sys.exit()
-
         self.transiciones = transiciones
 
         if estado_inicial not in estados:
@@ -35,7 +30,7 @@ def main():
         print("Agregue un archivo")
         return
 
-    caracteres = str.maketrans("", "", "{}\n")
+    caracteres = str.maketrans("", "", "{}\n()")
     nombre_archivo = sys.argv[1]
 
     try:
@@ -48,24 +43,24 @@ def main():
 
             estados = lineas[0].translate(caracteres).split(",")
             alfabeto = lineas[1].translate(caracteres).split(",")
+            estados = [e.strip() for e in lineas[0].translate(caracteres).split(",")]
+            alfabeto = [a.strip() for a in lineas[1].translate(caracteres).split(",")]
 
-            transiciones_raw = (lineas[2].strip() + ")").split("),")
+            transiciones_raw = lineas[2].translate(caracteres).split(",")
             transiciones = {}
             print(transiciones_raw)
-       
             for t in transiciones_raw:
-                
-                print(t)
+                if not t.strip():
+                    continue
+
                 izquierda, destino = t.split("=", 1)
-                #print(t)    # El 1 asegura que solo parte en el primer '='
-                izquierda = izquierda.strip("()")      # Quita paréntesis
-                origen, letra = izquierda.split(",")   # Separa estado y letra
-                destino = destino.strip()
-                transiciones[(origen.strip(), letra.strip())] = destino.strip()  # Asegúrate de que el destino esté limpio
+
+                izquierda = izquierda.split(":")
+
+                transiciones[(izquierda[0], izquierda[1])] = destino
 
             estado_inicial = lineas[3].translate(caracteres).strip()
             estados_finales = lineas[4].translate(caracteres).split(",")
-
             automata = Automata(estados, alfabeto, transiciones, estado_inicial, estados_finales)
             print("Automata creado correctamente")
             print("Estados:", automata.estados)
@@ -74,7 +69,7 @@ def main():
     except FileNotFoundError:
         print("Archivo no encontrado.")
     except Exception as e:
-        print(f"Ocurrió un error: {e}")
+        print(f"Ocurrio un error: {e}")
 
 
 if __name__ == "__main__":
