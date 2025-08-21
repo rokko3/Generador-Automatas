@@ -63,4 +63,5 @@ python generador.py try.txt cadenas.txt
 ![alt text](image.png)
 
 Ejecucion en C:
+
 ![alt text](image-1.png)
