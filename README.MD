@@ -44,6 +44,16 @@ ba
 aab
 aaaba
 ```
+El automata acepta cadenas que:
+
+* Empiezan con 'a'
+* Pueden tener cualquier cantidad de 'a's adicionales
+* No contienen la letra 'b'
+El autómata rechaza cadas cadena que:
+* Empieza con 'b'
+* Contiene al menos una 'b' en cualquier posicion
+El lenguaje que acepta este automata es:
+L = {aⁿ | n ≥ 0}
 ## Ejecucion del prorgrama
 
 ```bash
@@ -51,3 +61,6 @@ python generador.py try.txt cadenas.txt
 ```
 ## Imagen de pruebas
 ![alt text](image.png)
+
+Ejecucion en C:
+![alt text](image-1.png)
